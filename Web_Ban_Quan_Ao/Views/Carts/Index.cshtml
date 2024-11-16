@@ -1,0 +1,62 @@
+﻿@model List<Web_Ban_Quan_Ao.Models.ModelsView.Carts>
+
+@{
+    ViewBag.Title = "Giỏ Hàng";
+}
+
+<div class="container">
+    <h2 class="my-4">Giỏ Hàng</h2>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-warning" role="alert">
+            Giỏ hàng của bạn hiện tại trống.
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Tổng</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td><img src="@item.Image" alt="@item.Name" class="img-thumbnail" style="width: 80px;"></td>
+                        <td>
+                            @using (Html.BeginForm("UpdateCart", "Carts", FormMethod.Post))
+                            {
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <input type="number" name="quantity" value="@item.Qty" min="1" class="form-control" style="width: 80px;" />
+                                <button type="submit" class="btn btn-warning btn-sm">Cập nhật</button>
+                            }
+                        </td>
+                        <td>@string.Format("{0:C}", item.Price)</td>
+                        <td>@string.Format("{0:C}", item.Total)</td>
+                        <td>
+                            @using (Html.BeginForm("RemoveFromCart", "Carts", FormMethod.Post))
+                            {
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between align-items-center my-4">
+            <h4>Tổng tiền: <strong>@string.Format("{0:C}", ViewBag.TotalPrice)</strong></h4>
+            <a href="@Url.Action("Checkout", "Carts")" class="btn btn-success btn-lg">Thanh toán</a>
+        </div>
+    }
+</div>

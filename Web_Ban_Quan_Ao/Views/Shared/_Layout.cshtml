@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Tùy chỉnh lại các nút */
+        .nav-item .btn {
+            margin-right: 5px;
+            border-radius: 5px;
+            padding: 5px 15px;
+            font-size: 14px;
+        }
+
+        .navbar .navbar-text {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="btn btn-outline-light" href="@Url.Action("Index", "Home")">Trang Chủ</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Kiểm tra nếu người dùng đã đăng nhập -->
+                    @if (Session["Username"] != null)
+                    {
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light " href="@Url.Action("Index", "QUAN_TRI")">QUẢN TRỊ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light " href="@Url.Action("Index", "SAN_PHAM")">SẢN PHẨM</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light" href="@Url.Action("Index", "DON_HANG")">ĐƠN HÀNG</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light" href="@Url.Action("Index", "KHACH_HANG")">KHÁCH HÀNG</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light " href="@Url.Action("Index", "CHI_TIET_DON_HANG")">CHI TIẾT ĐƠN HÀNG</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light " href="@Url.Action("Index", "Carts")">GIỎ HÀNG</a>
+                        </li>
+                        <!-- Tên người dùng và nút đăng xuất -->
+                        <li class="nav-item">
+                            <span class="btn btn-primary btn-sm">Chào, @Session["Username"]</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-danger btn-sm" href="@Url.Action("Logout", "Account")">Đăng Xuất</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <!-- Nút đăng nhập và đăng ký nếu chưa đăng nhập -->
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Login", "Account")">Đăng Nhập</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-success btn-sm" href="@Url.Action("Register", "Account")">Đăng Ký</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content area -->
+    <div class="container my-5 pt-5">
+        @RenderBody()
+        <hr />
+        <footer class="text-center">
+            <p>&copy; @DateTime.Now.Year - Trang Chủ</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <!-- Additional JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

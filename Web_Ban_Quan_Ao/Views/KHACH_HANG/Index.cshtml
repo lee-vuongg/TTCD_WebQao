@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Web_Ban_Quan_Ao.Models.KHACH_HANG>
+
+@{
+    ViewBag.Title = "Danh Sách Khách Hàng";
+}
+
+<h2 class="mb-4 text-center">Danh Sách Khách Hàng</h2>
+
+<!-- Nút tạo mới khách hàng -->
+<p>
+    @Html.ActionLink("Tạo Mới", "Create", new { @class = "btn btn-primary mb-3" })
+</p>
+
+<!-- Bảng hiển thị danh sách khách hàng -->
+<table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Ho_ten)</th>
+            <th>@Html.DisplayNameFor(model => model.Tai_khoan)</th>
+            <th>@Html.DisplayNameFor(model => model.Mat_khau)</th>
+            <th>@Html.DisplayNameFor(model => model.Dia_chi)</th>
+            <th>@Html.DisplayNameFor(model => model.Dien_thoai)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.Ngay_sinh)</th>
+            <th>@Html.DisplayNameFor(model => model.Ngay_cap_nhat)</th>
+            <th>@Html.DisplayNameFor(model => model.Gioi_tinh)</th>
+            <th>@Html.DisplayNameFor(model => model.Tich_diem)</th>
+            <th>@Html.DisplayNameFor(model => model.Trang_thai)</th>
+            <th class="text-center">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Ho_ten)</td>
+                <td>@Html.DisplayFor(modelItem => item.Tai_khoan)</td>
+                <td>@Html.DisplayFor(modelItem => item.Mat_khau)</td>
+                <td>@Html.DisplayFor(modelItem => item.Dia_chi)</td>
+                <td>@Html.DisplayFor(modelItem => item.Dien_thoai)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.Ngay_sinh)</td>
+                <td>@Html.DisplayFor(modelItem => item.Ngay_cap_nhat)</td>
+                <td>@Html.DisplayFor(modelItem => item.Gioi_tinh)</td>
+                <td>@Html.DisplayFor(modelItem => item.Tich_diem)</td>
+                <td>@Html.DisplayFor(modelItem => item.Trang_thai)</td>
+                <td class="text-center">
+                    <!-- Các hành động -->
+                    <div class="btn-group" role="group" aria-label="Actions">
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.MaKH, @class = "btn btn-warning btn-sm" })
+                        @Html.ActionLink("Chi tiết", "Details", new { id = item.MaKH, @class = "btn btn-info btn-sm" })
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.MaKH, @class = "btn btn-danger btn-sm", onclick = "return confirm('Bạn có chắc chắn muốn xóa khách hàng này?')" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

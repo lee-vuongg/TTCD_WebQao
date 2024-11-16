@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Web_Ban_Quan_Ao.Models.SAN_PHAM>
+
+@{
+    ViewBag.Title = "Sản Phẩm";
+}
+
+<h2 class="mb-4 text-center">Sản Phẩm</h2>
+
+<!-- Nút tạo sản phẩm mới -->
+<p>
+    @Html.ActionLink("Thêm Mới Sản Phẩm", "Create", new { @class = "btn btn-primary mb-3" })
+</p>
+
+<!-- Bảng sản phẩm -->
+<table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.TenSP)</th>
+            <th>@Html.DisplayNameFor(model => model.Gia)</th>
+            <th>@Html.DisplayNameFor(model => model.So_luong)</th>
+            <th>@Html.DisplayNameFor(model => model.Mo_ta)</th>
+            <th>@Html.DisplayNameFor(model => model.Trang_thai)</th>
+            <th>@Html.DisplayNameFor(model => model.Image)</th>
+            <th class="text-center">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TenSP</td>
+                <td>@item.Gia.ToString("C")</td> <!-- Hiển thị giá dưới dạng tiền tệ -->
+                <td>@item.So_luong</td>
+                <td>@item.Mo_ta</td>
+                <td>@item.Trang_thai</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        <img src="@item.Image" alt="@item.TenSP" class="img-thumbnail" style="width: 100px; height: auto;" />
+                    }
+                    else
+                    {
+                        <span>Chưa có ảnh</span>
+                    }
+
+                </td>
+
+                <td class="text-center">
+                    @Html.ActionLink("Mua Ngay", "AddToCart", "Carts",
+                     new { id = item.MaSP, name = item.TenSP, price = item.Gia, image = item.Image },  // Sử dụng Image thay vì image
+                      new { @class = "btn btn-success" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

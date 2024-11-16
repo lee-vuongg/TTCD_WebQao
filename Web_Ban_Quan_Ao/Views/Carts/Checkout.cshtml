@@ -1,0 +1,42 @@
+﻿@model List<Web_Ban_Quan_Ao.Models.ModelsView.Carts>
+@{
+    ViewBag.Title = "Xác nhận Thanh toán";
+}
+
+<div class="container">
+    <h2 class="text-center my-4">Xác nhận Thanh toán</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Tổng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td><img src="@item.Image" alt="@item.Name" class="img-thumbnail" style="width: 80px;"></td>
+                        <td>@item.Qty</td>
+                        <td>@string.Format("{0:C}", item.Price)</td>
+                        <td>@string.Format("{0:C}", item.Total)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h4>Tổng tiền: <strong>@string.Format("{0:C}", ViewBag.TotalPrice)</strong></h4>
+        @using (Html.BeginForm("CompleteOrder", "Cart", FormMethod.Post))
+        {
+            <button type="submit" class="btn btn-success btn-lg">Xác nhận Thanh toán</button>
+        }
+    </div>
+</div>
